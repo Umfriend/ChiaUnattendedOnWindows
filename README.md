@@ -23,21 +23,31 @@ We need a location for our batch and log files. I use C:\ChiaTest but you can ch
     
 Create folders for the temporary files. With me, they are at \Chia\TempPlots in various drives (H:, I:, J:, R: and S:). Your locations will differ. One thing is important: **Each batch needs his own folders. If you, for instance, use a single SSD and plot to SSD:\Chia\TempPlots, then it will all fail. Instead you should have SSD:\Chia\Templots\Plot1, SSD:\Chia\Templots\Plot2 etc.** This is because the batch delete temporary files as, if and when e.g. a reboot mid-plotting has occurred. Each batch clears the temp plot location so the 2nd batch would clear files that the 1st batch is working on.
 
+So in the StartUpChia.bat, you will see, e.g.
+START "Plotter1" /b /normal C:\ChiaTest\BatchFiles\RunChiaPlot.bat 1 30 H:\Chia\TempPlots R:\Chia\TempPlots\Plot01 Y:\Chia\FinalPlots C:\ChiaTest\PlotLogs 10 ^>C:\ChiaTest\BatchLogs\Plot01.log 2>&1
+START "Plotter2" /b /normal C:\ChiaTest\BatchFiles\RunChiaPlot.bat 2 1800 I:\Chia\TempPlots R:\Chia\TempPlots\Plot02 Y:\Chia\FinalPlots C:\ChiaTest\PlotLogs 10 ^>C:\ChiaTest\BatchLogs\Plot02.log 2>&1
+
+First param: It is important that this parameter {1, 2} is unique. If you run more plots in parallel, continue 3, 4 etc. This is because all plotters will write log files to a single folder and this number will be used to distinguish the log files of the individual plotters.
+2nd param: For staggering, the time in seconds it takes before it will start plotting. Note, this only applies to the first run. Once a plot is finished, it will start a new one right waya
+3rd/4th params: You need to supply both but they may be the same (temp1 and temp2 for plotter). Each however **MUST HAVE ITS OWN DESTINATION**. If you use a single destination for multiple plotters, You'll have fun when the second plotter deletes the temp files of the first plotter.
+5th param: Final destination of the plot.
+6th param: Where do you want the plotter logs?
+7th param: For how many plots do you wish to retain the plotter logs? If 10 for instance, you'll see L01, L02 up to L10 and for plot #11, it will write to L01 again.
+
 After editing the batchfiles, store them in your “C:\ChiaTest\BatchFiles” folder. 
 
 Finally, you need to add a task through Task Scheduler:
-    7.1. I named it Chia. Whatever.
-    7.2. Trigger: At system startup
-    7.3. Actions:
-    7.3.1.Action: Start a program
-    7.3.2.Program/script: C:\ChiaTest\BatchFiles\StartUpChia.bat
-    7.3.3.Add arguments: >C:\ChiaTest\BatchLogs\StartUpChia.log 2>&1
-    7.3.4.Start in: C:\ChiaTest\BatchFiles
-    7.4. Of course, the C:\ChiaTest part must be amended to the location of your choice for the batch and log files.
+1. I named it Chia. Whatever.
+2. Trigger: At system startup
+3. Actions:
+3.1.Action: Start a program
+3.2.Program/script: C:\ChiaTest\BatchFiles\StartUpChia.bat
+3.3.Add arguments: >C:\ChiaTest\BatchLogs\StartUpChia.log 2>&1
+3.4.Start in: C:\ChiaTest\BatchFiles
+4. Of course, the C:\ChiaTest part must be amended to the location of your choice for the batch and log files.
+5. Reboot
 
-    Reboot
-
-Does it work?
+**Does it work?**
 After reboot, RDP into the machine. You should find StartUpChia.log, Plotxx.log in the BatchLogs folder and Plotter_xx_yy.log in the PlotLogs folder.
 StartUpChia.log is the start-up log. It should tell you that daemon, the node, farmer etc have started.
 Plotxx.log is the log of the iterating batch file, not much to be seen here.
