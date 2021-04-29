@@ -1,6 +1,7 @@
 # ChiaUnattendedOnWindows
 Batch file project to run Chia (plotting) unattended
-Thanks to the dude on the Keybase chia.network channel who suggested to make it paramaterised. I don't know his name :( but he posted this link https://pastebin.com/i9wsbF1Z). Of course , it turned out to be a lot more complicated but it got me started. Managed to lose about 4 plots during testing ;)
+Thanks to the dude on the Keybase chia.network channel who suggested to make it paramaterised. I don't know his name :( but he posted this link https://pastebin.com/i9wsbF1Z). Of course , it turned out to be a lot more complicated but it got me started. Managed to lose about 4 plots during testing ;) Originally started here https://www.reddit.com/r/chia/comments/mxf40j/howto_plotting_unattendedheadless_on_windows/
+
 **Why does it do what it does**
 So I have this headless Server and I had some HDDs left and wanted to plot&farm Chia. At first I tried the GUI but it requires you to stay logged on (through e.g. RDP). Not what I want. Then I went to CLI but encountered the same issue. Even if I’d let it run by staying logged on, any reboot would stop the process.
 I wanted to address that.
