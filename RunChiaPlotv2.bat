@@ -32,7 +32,7 @@ SET SPR=PR
 IF %PR% LSS 10 (SET SPR=0%PR%)
 SET LFN=%LF%\Plotter_%SPR%_L%SLI%.log
 REM I delete the existing log file so that the NTFS attribute Date created is updated. Easier to determine start and end time (or in my case, date ROFL).
-IF EXIST*%LFN% (DEL %LFN%)
+IF EXIST %LFN% (DEL %LFN%)
 chia.exe plots create -k32 -b4500 -r2 -t%T1% -2%T2% -d%FF% >%LFN%
 if exist "c:\chiatest\stop.txt" (
 	goto :end
