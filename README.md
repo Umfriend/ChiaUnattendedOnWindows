@@ -26,7 +26,6 @@ Create folders for the temporary files. With me, they are at \Chia\TempPlots in 
 
 So in the StartUpChia.bat, you will see, e.g.
 START "Plotter1" /b /normal C:\ChiaTest\BatchFiles\RunChiaPlot.bat 1 30 H:\Chia\TempPlots R:\Chia\TempPlots\Plot01 Y:\Chia\FinalPlots C:\ChiaTest\PlotLogs 10 ^>C:\ChiaTest\BatchLogs\Plot01.log 2>&1
-
 START "Plotter2" /b /normal C:\ChiaTest\BatchFiles\RunChiaPlot.bat 2 1800 I:\Chia\TempPlots R:\Chia\TempPlots\Plot02 Y:\Chia\FinalPlots C:\ChiaTest\PlotLogs 10 ^>C:\ChiaTest\BatchLogs\Plot02.log 2>&1
 
 First param: It is important that this parameter {1, 2} is unique. If you run more plots in parallel, continue 3, 4 etc. This is because all plotters will write log files to a single folder and this number will be used to distinguish the log files of the individual plotters.
