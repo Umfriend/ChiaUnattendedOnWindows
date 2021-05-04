@@ -25,7 +25,9 @@ We need a location for our batch and log files. I use C:\ChiaTest but you can ch
 Create folders for the temporary files. With me, they are at \Chia\TempPlots in various drives (H:, I:, J:, R: and S:). Your locations will differ. One thing is important: **Each batch needs his own folders. If you, for instance, use a single SSD and plot to SSD:\Chia\TempPlots, then it will all fail. Instead you should have SSD:\Chia\Templots\Plot1, SSD:\Chia\Templots\Plot2 etc.** This is because the batch delete temporary files as, if and when e.g. a reboot mid-plotting has occurred. Each batch clears the temp plot location so the 2nd batch would clear files that the 1st batch is working on.
 
 So in the StartUpChia.bat, you will see, e.g.
+
 START "Plotter1" /b /normal C:\ChiaTest\BatchFiles\RunChiaPlot.bat 1 30 H:\Chia\TempPlots R:\Chia\TempPlots\Plot01 Y:\Chia\FinalPlots C:\ChiaTest\PlotLogs 10 ^>C:\ChiaTest\BatchLogs\Plot01.log 2>&1
+
 START "Plotter2" /b /normal C:\ChiaTest\BatchFiles\RunChiaPlot.bat 2 1800 I:\Chia\TempPlots R:\Chia\TempPlots\Plot02 Y:\Chia\FinalPlots C:\ChiaTest\PlotLogs 10 ^>C:\ChiaTest\BatchLogs\Plot02.log 2>&1
 
 First param: It is important that this parameter {1, 2} is unique. If you run more plots in parallel, continue 3, 4 etc. This is because all plotters will write log files to a single folder and this number will be used to distinguish the log files of the individual plotters.
